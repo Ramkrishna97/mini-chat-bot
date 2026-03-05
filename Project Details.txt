@@ -1,0 +1,12 @@
+Application :
+It runs LLM on local machine, springboot application takes query and process with help of local LLm and then serves the response to the user in browser.
+Using Ollama for now.
+Included one index.html for now.
+
+
+Future Scope:
+-- Adding other LLMs like claude , GPT , Gemini .
+-- Adding logic to switch LLM automatically as per given query type.
+-- Optimize performance using async , kafka , multi threading.
+-- Use single port, url, optimize multi-urls into one.
+-- Automate commands, so that just starting the SB app runs all command for mvn, LLM start and run etc.
