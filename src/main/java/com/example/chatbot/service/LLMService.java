@@ -1,51 +1,84 @@
 package com.example.chatbot.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import java.util.HashMap;
-import java.util.Map;
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
+        import java.util.List;
 
 @Service
 public class LLMService {
 
-    private final RestTemplate restTemplate;
-    private String lastResponse = "";
-    private static final String OLLAMA_URL = "http://localhost:11434/api/generate";
+    private static final Logger logger = LoggerFactory.getLogger(LLMService.class);
+    private static final List<String> ERROR_PATTERNS = List.of(
+            "token exhaust",
+            "context length exceeded",
+            "maximum context",
+            "out of memory",
+            "failed to generate",
+            "model not loaded",
+            "timeout"
+    );
 
-    public LLMService() {
-        this.restTemplate = new RestTemplate();
-    }
+    @Autowired
+    private OllamaService ollamaService;
 
-    public String processQuery(String query) {
-        try {
-            // Prepare request for Ollama
-            Map<String, Object> request = new HashMap<>();
-            request.put("model", "llama2"); // or mistral, etc.
-            request.put("prompt", query);
-            request.put("stream", false);
+    @Autowired
+    private ModelManagerService modelManagerService;
 
-            // Send to Ollama
-            Map<String, Object> response = restTemplate.postForObject(
-                    OLLAMA_URL,
-                    request,
-                    Map.class
-            );
+    public String processQuery(String query, String requestedModel) {
+        List<String> availableModels = modelManagerService.getAvailableModels();
 
-            // Extract response
-            if (response != null && response.containsKey("response")) {
-                lastResponse = (String) response.get("response");
-            } else {
-                lastResponse = "No response from LLM";
+        // If specific model requested, try it first
+        if (requestedModel != null && !requestedModel.isEmpty()) {
+            String response = tryModel(query, requestedModel);
+            if (!isErrorResponse(response)) {
+                return response;
             }
-
-        } catch (Exception e) {
-            lastResponse = "Error: " + e.getMessage();
+            logger.info("Requested model {} failed, trying alternatives", requestedModel);
         }
 
-        return lastResponse;
+        // Try all models in sequence
+        for (String model : availableModels) {
+            if (requestedModel != null && model.equals(requestedModel)) {
+                continue; // Already tried
+            }
+
+            logger.info("Trying model: {}", model);
+            String response = tryModel(query, model);
+
+            if (!isErrorResponse(response)) {
+                return String.format("[Model: %s]\n%s", model, response);
+            }
+        }
+
+        return "All models failed to generate a response. Please try again later.";
     }
 
-    public String getLastResponse() {
-        return lastResponse.isEmpty() ? "No queries yet" : lastResponse;
+    private String tryModel(String query, String model) {
+        try {
+            String response = ollamaService.generateResponse(query, model);
+
+            // Check if response indicates an error
+            if (response.startsWith("ERROR:")) {
+                return response;
+            }
+
+            return response;
+
+        } catch (Exception e) {
+            logger.error("Error with model {}: {}", model, e.getMessage());
+            return "ERROR: " + e.getMessage();
+        }
+    }
+
+    private boolean isErrorResponse(String response) {
+        if (response == null || response.startsWith("ERROR:")) {
+            return true;
+        }
+
+        String lowerResponse = response.toLowerCase();
+        return ERROR_PATTERNS.stream()
+                .anyMatch(pattern -> lowerResponse.contains(pattern.toLowerCase()));
     }
 }
