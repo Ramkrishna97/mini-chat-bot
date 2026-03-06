@@ -1,233 +1,233 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Chatbot - Simple Interface</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Local Chatbot - Simple Interface</title>-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
-            padding: 20px;
-        }
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background: #f0f2f5;-->
+<!--            padding: 20px;-->
+<!--        }-->
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+<!--        .container {-->
+<!--            max-width: 1000px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
 
-        h1 {
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+<!--        h1 {-->
+<!--            color: #1a1a1a;-->
+<!--            margin-bottom: 20px;-->
+<!--            text-align: center;-->
+<!--        }-->
 
-        .boxes {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+<!--        .boxes {-->
+<!--            display: flex;-->
+<!--            gap: 20px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
 
-        .box {
-            flex: 1;
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+<!--        .box {-->
+<!--            flex: 1;-->
+<!--            background: white;-->
+<!--            border-radius: 8px;-->
+<!--            padding: 20px;-->
+<!--            box-shadow: 0 2px 4px rgba(0,0,0,0.1);-->
+<!--        }-->
 
-        .box h2 {
-            color: #333;
-            font-size: 18px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-        }
+<!--        .box h2 {-->
+<!--            color: #333;-->
+<!--            font-size: 18px;-->
+<!--            margin-bottom: 15px;-->
+<!--            padding-bottom: 10px;-->
+<!--            border-bottom: 2px solid #e0e0e0;-->
+<!--        }-->
 
-        .box-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
+<!--        .box-label {-->
+<!--            font-size: 14px;-->
+<!--            color: #666;-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
 
-        .content {
-            min-height: 200px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-            font-size: 16px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
+<!--        .content {-->
+<!--            min-height: 200px;-->
+<!--            max-height: 300px;-->
+<!--            overflow-y: auto;-->
+<!--            padding: 15px;-->
+<!--            background: #f8f9fa;-->
+<!--            border-radius: 4px;-->
+<!--            border: 1px solid #dee2e6;-->
+<!--            font-size: 16px;-->
+<!--            line-height: 1.5;-->
+<!--            white-space: pre-wrap;-->
+<!--            word-wrap: break-word;-->
+<!--        }-->
 
-        .input-area {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+<!--        .input-area {-->
+<!--            background: white;-->
+<!--            border-radius: 8px;-->
+<!--            padding: 20px;-->
+<!--            box-shadow: 0 2px 4px rgba(0,0,0,0.1);-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
 
-        .input-group {
-            display: flex;
-            gap: 10px;
-        }
+<!--        .input-group {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--        }-->
 
-        textarea {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            font-size: 14px;
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-        }
+<!--        textarea {-->
+<!--            flex: 1;-->
+<!--            padding: 12px;-->
+<!--            border: 1px solid #dee2e6;-->
+<!--            border-radius: 4px;-->
+<!--            font-size: 14px;-->
+<!--            resize: vertical;-->
+<!--            min-height: 80px;-->
+<!--            font-family: inherit;-->
+<!--        }-->
 
-        textarea:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-        }
+<!--        textarea:focus {-->
+<!--            outline: none;-->
+<!--            border-color: #4CAF50;-->
+<!--            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);-->
+<!--        }-->
 
-        .button-group {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
+<!--        .button-group {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            justify-content: flex-end;-->
+<!--            margin-top: 10px;-->
+<!--        }-->
 
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+<!--        button {-->
+<!--            padding: 12px 24px;-->
+<!--            border: none;-->
+<!--            border-radius: 4px;-->
+<!--            font-size: 14px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background-color 0.3s;-->
+<!--        }-->
 
-        .btn-primary {
-            background: #4CAF50;
-            color: white;
-        }
+<!--        .btn-primary {-->
+<!--            background: #4CAF50;-->
+<!--            color: white;-->
+<!--        }-->
 
-        .btn-primary:hover {
-            background: #45a049;
-        }
+<!--        .btn-primary:hover {-->
+<!--            background: #45a049;-->
+<!--        }-->
 
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
+<!--        .btn-secondary {-->
+<!--            background: #6c757d;-->
+<!--            color: white;-->
+<!--        }-->
 
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
+<!--        .btn-secondary:hover {-->
+<!--            background: #5a6268;-->
+<!--        }-->
 
-        .refresh-link {
-            text-align: right;
-            margin-top: 10px;
-        }
+<!--        .refresh-link {-->
+<!--            text-align: right;-->
+<!--            margin-top: 10px;-->
+<!--        }-->
 
-        .refresh-link a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-size: 14px;
-        }
+<!--        .refresh-link a {-->
+<!--            color: #4CAF50;-->
+<!--            text-decoration: none;-->
+<!--            font-size: 14px;-->
+<!--        }-->
 
-        .refresh-link a:hover {
-            text-decoration: underline;
-        }
+<!--        .refresh-link a:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
 
-        .status {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
-        }
+<!--        .status {-->
+<!--            margin-top: 10px;-->
+<!--            font-size: 14px;-->
+<!--            color: #666;-->
+<!--        }-->
 
-        @media (max-width: 768px) {
-            .boxes {
-                flex-direction: column;
-            }
+<!--        @media (max-width: 768px) {-->
+<!--            .boxes {-->
+<!--                flex-direction: column;-->
+<!--            }-->
 
-            .input-group {
-                flex-direction: column;
-            }
+<!--            .input-group {-->
+<!--                flex-direction: column;-->
+<!--            }-->
 
-            button {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>🤖 Local Chatbot</h1>
+<!--            button {-->
+<!--                width: 100%;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>🤖 Local Chatbot</h1>-->
 
-    <!-- Two boxes: POST (Query) and GET (Response) -->
-    <div class="boxes">
-        <!-- POST Box - Shows what you sent -->
-        <div class="box">
-            <h2>📤 POST - Your Query</h2>
-            <div class="box-label">Question sent:</div>
-            <div class="content" th:text="${lastQuery != null && !lastQuery.isEmpty() ? lastQuery : 'No question sent yet'}">
-                No question sent yet
-            </div>
-            <div class="status" th:if="${lastQuery != null && !lastQuery.isEmpty()}">
-                Sent at: <span th:text="${#dates.format(new java.util.Date(), 'HH:mm:ss')}"></span>
-            </div>
-        </div>
+<!--    &lt;!&ndash; Two boxes: POST (Query) and GET (Response) &ndash;&gt;-->
+<!--    <div class="boxes">-->
+<!--        &lt;!&ndash; POST Box - Shows what you sent &ndash;&gt;-->
+<!--        <div class="box">-->
+<!--            <h2>📤 POST - Your Query</h2>-->
+<!--            <div class="box-label">Question sent:</div>-->
+<!--            <div class="content" th:text="${lastQuery != null && !lastQuery.isEmpty() ? lastQuery : 'No question sent yet'}">-->
+<!--                No question sent yet-->
+<!--            </div>-->
+<!--            <div class="status" th:if="${lastQuery != null && !lastQuery.isEmpty()}">-->
+<!--                Sent at: <span th:text="${#dates.format(new java.util.Date(), 'HH:mm:ss')}"></span>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <!-- GET Box - Shows the response -->
-        <div class="box">
-            <h2>📥 GET - Bot Response</h2>
-            <div class="box-label">Answer received:</div>
-            <div class="content" th:text="${lastResponse != null && !lastResponse.isEmpty() ? lastResponse : 'No response yet'}">
-                No response yet
-            </div>
-            <div class="status" th:if="${lastResponse != null && !lastResponse.isEmpty()}">
-                Last updated: <span th:text="${#dates.format(new java.util.Date(), 'HH:mm:ss')}"></span>
-            </div>
-        </div>
-    </div>
+<!--        &lt;!&ndash; GET Box - Shows the response &ndash;&gt;-->
+<!--        <div class="box">-->
+<!--            <h2>📥 GET - Bot Response</h2>-->
+<!--            <div class="box-label">Answer received:</div>-->
+<!--            <div class="content" th:text="${lastResponse != null && !lastResponse.isEmpty() ? lastResponse : 'No response yet'}">-->
+<!--                No response yet-->
+<!--            </div>-->
+<!--            <div class="status" th:if="${lastResponse != null && !lastResponse.isEmpty()}">-->
+<!--                Last updated: <span th:text="${#dates.format(new java.util.Date(), 'HH:mm:ss')}"></span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <!-- Input Area for new questions -->
-    <div class="input-area">
-        <form action="#" method="post" th:action="@{/ask}">
-            <div class="input-group">
-                <textarea name="question" placeholder="Type your question here..." required></textarea>
-            </div>
-            <div class="button-group">
-                <button type="submit" class="btn-primary">📤 Send Question (POST)</button>
-                <a href="/refresh" class="btn-secondary" style="text-decoration: none; text-align: center;">🔄 Refresh Response (GET)</a>
-            </div>
-        </form>
-    </div>
+<!--    &lt;!&ndash; Input Area for new questions &ndash;&gt;-->
+<!--    <div class="input-area">-->
+<!--        <form action="#" method="post" th:action="@{/ask}">-->
+<!--            <div class="input-group">-->
+<!--                <textarea name="question" placeholder="Type your question here..." required></textarea>-->
+<!--            </div>-->
+<!--            <div class="button-group">-->
+<!--                <button type="submit" class="btn-primary">📤 Send Question (POST)</button>-->
+<!--                <a href="/refresh" class="btn-secondary" style="text-decoration: none; text-align: center;">🔄 Refresh Response (GET)</a>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 
-    <!-- Quick refresh link -->
-    <div class="refresh-link">
-        <a href="/refresh">↻ Click here to manually refresh the response</a>
-    </div>
+<!--    &lt;!&ndash; Quick refresh link &ndash;&gt;-->
+<!--    <div class="refresh-link">-->
+<!--        <a href="/refresh">↻ Click here to manually refresh the response</a>-->
+<!--    </div>-->
 
-    <!-- Simple instructions -->
-    <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 14px; color: #333;">
-        <strong>📝 How to use:</strong><br>
-        • Type your question in the text box and click "Send Question" - this does a POST<br>
-        • The left box shows your last sent question<br>
-        • The right box shows the bot's response<br>
-        • Click "Refresh Response" or the refresh link to manually GET the latest response<br>
-        • Both boxes automatically update after sending a new question
-    </div>
-</div>
-</body>
-</html>
+<!--    &lt;!&ndash; Simple instructions &ndash;&gt;-->
+<!--    <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 14px; color: #333;">-->
+<!--        <strong>📝 How to use:</strong><br>-->
+<!--        • Type your question in the text box and click "Send Question" - this does a POST<br>-->
+<!--        • The left box shows your last sent question<br>-->
+<!--        • The right box shows the bot's response<br>-->
+<!--        • Click "Refresh Response" or the refresh link to manually GET the latest response<br>-->
+<!--        • Both boxes automatically update after sending a new question-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
