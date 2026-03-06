@@ -1,0 +1,130 @@
+## Start Ollama (if using that option)
+
+ollama serve
+ollama run llama2
+
+# Test it's working
+-----------------------------------
+Build and Run Spring Boot App
+# Build the project
+# Run the application
+
+mvn clean package
+mvn spring-boot:run
+
+-----------------------
+Test the API
+POST Request (send query):
+
+curl -X POST http://localhost:8008/api/chat/query \
+  -H "Content-Type: text/plain" \
+  -d "What is the capital of France?"
+
+------------------------------------------------
+  GET Request (get last response):
+
+      Open browser: http://localhost:8008/api/chat/response
+
+  Alternative GET with query:
+
+      Open browser: http://localhost:8008/api/chat/ask?question=What is Java?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+spring-boot.config
+
+    asynchronous: true
+    test: true
+    cache: false
+    port: 8008
+    http: true
+    websockets: false
+
+    [
+    - `asynchronous: true`: Allows the server to handle multiple requests simultaneously.
+    - `test: true`: Enables test mode for debugging purposes.
+    - `cache: false`: Disables caching for better performance.
+    - `port: 8000`: Sets the port for the HTTP server.
+    - `http: true`: Enables HTTP requests for the server.
+    - `websockets: false`: Disables WebSockets for this configuration.
+    ]
+
+    -------------------------------------------------------------------
+    ### 2. Start Your Spring Boot Development Server
+        npm start --all
+
+Once your server is running, you can start the model:
+    node http://localhost:8008
+
+
+
+### 4. Handle Requests and Responses
+When the server is running, the model will handle incoming requests. Here's how to configure it:
+
+    model: "http://localhost:8008/api/chat/query"
+   =======
+    model: "http://localhost:8008/api/chat/response"
+
+    --------------------------------------------------------------------------------------------
+    # Test with a simple prompt
+    ollama run llama3.2:1b "Hello, are you working?"
+
+
+# Test if Ollama API is responding (PowerShell)
+curl.exe -X POST http://localhost:11434/api/generate -d '{\"model\": \"llama3.2:1b\", \"prompt\": \"Say hello\", \"stream\": false}'
+
+# PowerShell - Clean way to test
+$body = @{
+    model = "llama3.2:1b"
+    prompt = "Say hello"
+    stream = $false
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:11434/api/generate" -Method Post -Body $body -ContentType "application/json"
+
+-----------------------------
+# test-ollama.ps1
+Write-Host "=== Testing Ollama API ===" -ForegroundColor Cyan
+
+# Method 1: Using Invoke-RestMethod (Recommended for PowerShell)
+Write-Host "`nMethod 1: Using Invoke-RestMethod" -ForegroundColor Yellow
+$body = @{
+    model = "llama3.2:1b"
+    prompt = "Say hello in one word"
+    stream = $false
+} | ConvertTo-Json
+
+try {
+    $response = Invoke-RestMethod -Uri "http://localhost:11434/api/generate" -Method Post -Body $body -ContentType "application/json"
+    Write-Host "✅ Success! Response: $($response.response)" -ForegroundColor Green
+} catch {
+    Write-Host "❌ Error: $_" -ForegroundColor Red
+}
+
+# Method 2: Using curl.exe with here-string (Alternative)
+Write-Host "`nMethod 2: Using curl.exe" -ForegroundColor Yellow
+$json = @'
+{
+    "model": "llama3.2:1b",
+    "prompt": "Say hello in one word",
+    "stream": false
+}
+'@
+
+$json | curl.exe -X POST http://localhost:11434/api/generate -d @- -H "Content-Type: application/json"
+
+Write-Host "`n=== Test Complete ===" -ForegroundColor Cyan
+
+
+
