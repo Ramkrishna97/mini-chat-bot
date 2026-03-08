@@ -10,6 +10,16 @@ Future Scope:
 -- Optimize performance using async , kafka , multi threading.
 -- Use single port, url, optimize multi-urls into one.
 -- Automate commands, so that just starting the SB app runs all command for mvn, LLM start and run etc.
---
+--switch llm ( if response is token exhaust , switch to next llm and ) add for multi-llm usage.
+
+
+
+
+************   RUNNING    ***************
+
+project in running condition .
+UI access  -   http://localhost:8008/ask
+run quick-start.bat from file manager / run SB app and access the url on ui.
+
 
 
