@@ -1,0 +1,7 @@
+============  PROOJECT  WORKFLOW  =================
+Controller :
+    REST : LLM controller ->("/api/llm") uses POST ("/query"), GET ("/query") methods to receive data as query and send response
+            as LLM response to UI.   It also has a option to choose model selector.
+            Uses LLMService and modelManagerService to process data and send response.
+    MVC : Web Controller -> Handles the UI using thymeleaf. on base URL("/") it returns index.html. index() -> binds available models , base URL , server port using Model to modelManagerService.
+            askQuestion() -> processes query by using llmService ,then binds data(model,query,URl,)to Model. and return index.html.

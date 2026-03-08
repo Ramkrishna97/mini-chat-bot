@@ -1,0 +1,76 @@
+
+Step 1: Set up your development environment
+
+1. Install Java Development Kit (JDK) and Apache Maven on your computer.
+2. Install Spring Boot Toolbar and Spring Boot CLI.
+3. Download the OLLMA LLM software and extract it to a directory on your computer.
+
+Step 2: Create a Spring Boot project
+
+1. Open Spring Boot CLI and navigate to the directory where you extracted the OLLMA LLM software.
+2. Run the command `spring init --type=llm --package=com.example.ollma --namespace=ollma` to create a new Spring Boot project.
+3. Follow the prompts to complete the project setup.
+
+Step 3: Add the OLLMA LLM dependency to your project
+
+1. In the Spring Boot project directory, create a new file called `dependencies.yml`.
+2. Add the following dependency to the file:
+```yaml
+llm:
+  group: org.ollma
+  artifact: org.ollma.llm
+  version: 1.0.0
+```
+3. Save the file and run the command `spring dependency:resolved` to update your project's dependencies.
+
+Step 4: Configure the OLLMA LLM
+
+1. Create a new file called `ollma.properties` in the project directory.
+2. Add the following configuration to the file:
+```properties
+llm.server.port=8080
+llm.server.host=localhost
+```
+3. Set the `LLM_SERVER_PORT` and `LLM_SERVER_HOST` environment variables to the values you specified in the `ollma.properties`
+file.
+
+Step 5: Run the OLLMA LLM locally
+
+1. Navigate to the project directory in the terminal.
+2. Run the command `llm start` to start the OLLMA LLM server.
+3. The server will start on `http://localhost:8080/` and you can test it by visiting that URL in your web browser.
+
+Step 6: Create an API to communicate with the OLLMA LLM
+
+1. Create a new Spring Boot controllers package (e.g., `com.example.ollma.api`) and add the necessary dependencies to your
+`dependencies.yml` file.
+2. Create a new REST API in the `com.example.ollma.api` package. For example, you can create a `GetLLMResponse` API that takes
+a `query` parameter and returns a response with the LLM's answer. Here's an example implementation:
+```java
+@RestController
+@RequestMapping("/llm")
+public class GetLLMResponse {
+
+  @Autowired
+  private LLM llm;
+
+  @GetMapping("/{query}")
+  public ResponseEntity<String> getLLMResponse(@PathVariable String query) {
+    try {
+      String response = llm.getResponse(query);
+      return ResponseEntity.ok(response);
+    } catch (LLMException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+}
+```
+3. Run the Spring Boot application and test the API by sending a GET request to `http://localhost:8080/llm/{query}` with the
+desired query parameter.
+
+Example: `http://localhost:8080/llm?question=What+is+the+meaning+of+life%3F`
+
+This should return the LLM's response to the query.
+
+That's it! You've successfully built a Spring Boot app that can run locally without internet and communicate with an OLLMA LLM
+through APIs.
