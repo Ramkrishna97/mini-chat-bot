@@ -5,3 +5,10 @@ Controller :
             Uses LLMService and modelManagerService to process data and send response.
     MVC : Web Controller -> Handles the UI using thymeleaf. on base URL("/") it returns index.html. index() -> binds available models , base URL , server port using Model to modelManagerService.
             askQuestion() -> processes query by using llmService ,then binds data(model,query,URl,)to Model. and return index.html.
+Service :
+    LLMService : Uses ollamaService and modelManagerService .
+        ProcessQuery : Check available models from modelManager Service , if model is not null and not exhausted, then it generates response using 'tryModel' method.
+        tryModel : Uses ollamaService to generate response from input(query ,model) ,
+
+
+    Has a list of all available models.
