@@ -5,6 +5,7 @@ Included one index.html for now.
 
 
 Future Scope:
+*--*  giving query with blank enter("ex.- hi /n") breaks the parsing.
 -- Adding other LLMs like claude , GPT , Gemini .
 -- Adding logic to switch LLM automatically as per given query type.
 -- Optimize performance using async , kafka , multi threading.
