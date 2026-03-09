@@ -8,7 +8,14 @@ Controller :
 Service :
     LLMService : Uses ollamaService and modelManagerService .
         ProcessQuery : Check available models from modelManager Service , if model is not null and not exhausted, then it generates response using 'tryModel' method.
-        tryModel : Uses ollamaService to generate response from input(query ,model) ,
+        tryModel : Uses ollamaService to generate response from input(query ,model) .
+        isErrorResponse : checks if response has any "ERROR" message, then it tries to switch from any other available models.
+
+    Ollama Service :        uses OLLAMA_URL(fixed port for local- 11434 ),httpClient
+
+
+
+Model :
 
 
     Has a list of all available models.
