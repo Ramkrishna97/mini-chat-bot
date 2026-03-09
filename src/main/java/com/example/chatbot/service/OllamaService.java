@@ -20,8 +20,6 @@ public class OllamaService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-    @Autowired
-    private ModelManagerService modelManagerService;
 
     public OllamaService() {
         this.httpClient = HttpClient.newHttpClient();
