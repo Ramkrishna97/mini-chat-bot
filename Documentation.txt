@@ -11,8 +11,9 @@ Service :
         tryModel : Uses ollamaService to generate response from input(query ,model) .
         isErrorResponse : checks if response has any "ERROR" message, then it tries to switch from any other available models.
 
-    Ollama Service :        uses OLLAMA_URL(fixed port for local- 11434 ),httpClient & objectMapper.
-                            generateResponse() -> generates a requestBody from given model and query ,creates http request using
+    Ollama Service : uses OLLAMA_URL(fixed port for local- 11434 ),httpClient & objectMapper.
+                     generateResponse() -> generates a requestBody from given model and query ,creates http request using uri,header,requestBody. Also, creates response by binding request to httpClient's send menthod.
+
     ModelManagerService:
 
 
