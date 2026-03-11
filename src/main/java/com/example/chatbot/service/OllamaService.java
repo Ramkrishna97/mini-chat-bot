@@ -20,7 +20,6 @@ public class OllamaService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-
     public OllamaService() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
