@@ -17,7 +17,7 @@ Service :
     ModelManagerService: has a list of all available LLm models. setupModels() -> uses Process/Runtime.exec to run ollama-version , pull models ,command.
 Model : Saves query and model data.
 Config :
-    AppStartupRunner :
+    AppStartupRunner :Uses modelManagerService.setupModels to set the models.
 
 
 Model : saves query,model  data .
