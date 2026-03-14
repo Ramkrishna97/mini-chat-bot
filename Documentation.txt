@@ -15,7 +15,7 @@ Service :
                      generateResponse() -> generates a requestBody from given model and query ,creates http request using uri,header,requestBody. Also, creates response by binding request to httpClient's send menthod.
 
     ModelManagerService: has a list of all available LLm models. setupModels() -> uses Process/Runtime.exec to run ollama-version , pull models ,command.
-Model :
+Model : Saves query and model data.
 
 
 Model : saves query,model  data .
